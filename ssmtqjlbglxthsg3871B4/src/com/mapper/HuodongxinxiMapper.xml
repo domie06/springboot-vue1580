@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.HuodongxinxiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Huodongxinxi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="bianhao" jdbcType="VARCHAR" property="bianhao" />    <result column="biaoti" jdbcType="VARCHAR" property="biaoti" />    <result column="neirong" jdbcType="VARCHAR" property="neirong" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, bianhao,biaoti,neirong, addtime
+  </sql>
+  <select id="quchongHuodongxinxi"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from huodongxinxi 
+    where bianhao = #{bianhao,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from huodongxinxi  where 1=1
+    <if test="bianhao!=null">and bianhao like  concat('%',#{bianhao,jdbcType=VARCHAR},'%')</if>     <if test="biaoti!=null">and biaoti like  concat('%',#{biaoti,jdbcType=VARCHAR},'%')</if>     <if test="neirong!=null">and neirong like  concat('%',#{neirong,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huodongxinxi  where 1=1
+    <if test="bianhao!=null">
+    and bianhao =#{bianhao}
+    </if>
+  </select>
+  
+  <select id="getsyhuodongxinxi1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huodongxinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsyhuodongxinxi2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huodongxinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsyhuodongxinxi3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huodongxinxi  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from huodongxinxi where 1=1 
+     <if test="bianhao!=null">and bianhao like  concat('%',#{bianhao,jdbcType=VARCHAR},'%')</if>     <if test="biaoti!=null">and biaoti like  concat('%',#{biaoti,jdbcType=VARCHAR},'%')</if>     <if test="neirong!=null">and neirong like  concat('%',#{neirong,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from huodongxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from huodongxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Huodongxinxi">
+    insert into huodongxinxi (id, bianhao,biaoti,neirong, addtime)
+    values (#{id,jdbcType=INTEGER}, #{bianhao,jdbcType=VARCHAR},#{biaoti,jdbcType=VARCHAR},#{neirong,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Huodongxinxi">
+    insert into huodongxinxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bianhao != null"> bianhao, </if>      <if test="biaoti != null"> biaoti, </if>      <if test="neirong != null"> neirong, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bianhao != null"> #{bianhao,jdbcType=VARCHAR},</if>      <if test="biaoti != null"> #{biaoti,jdbcType=VARCHAR},</if>      <if test="neirong != null"> #{neirong,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Huodongxinxi">
+    update huodongxinxi
+    <set>
+	  <if test="bianhao != null"> bianhao = #{bianhao,jdbcType=VARCHAR},</if>      <if test="biaoti != null"> biaoti = #{biaoti,jdbcType=VARCHAR},</if>      <if test="neirong != null"> neirong = #{neirong,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Huodongxinxi">
+    update huodongxinxi
+    set bianhao = #{bianhao,jdbcType=VARCHAR},biaoti = #{biaoti,jdbcType=VARCHAR},neirong = #{neirong,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
